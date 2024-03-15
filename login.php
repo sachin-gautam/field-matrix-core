@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login_styles.css">
     <title>Login/Signup Page</title>
 </head>
+
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
+            <form method="post" action="/backend/register.php">
                 <h1>Create Account</h1>
                 <span>Use your email for registration</span>
-                <input type="text" placeholder="First Name">
-                <input type="text" placeholder="Last Name">
-                <input type="text" placeholder="Username">
-                <input type="number" placeholder="Phone Number">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button>Sign up</button>
+                <input type="text" placeholder="First Name" name="firstname">
+                <input type="text" placeholder="Last Name" name="lastname">
+                <input type="text" placeholder="Username" name="username">
+                <input type="number" placeholder="Phone Number" name="phone">
+                <input type="email" placeholder="Email" name="email">
+                <input type="password" placeholder="Password" name="password">
+                <button type="submit">Sign up</button>
             </form>
         </div>
         <div class="form-container sign-in">
-            <form>
+            <form action="/backend/login.php" method="post">
                 <h1>Sign In</h1>
                 <span>Use your email & password</span>
-                <input type="email" placeholder="Email/Username">
-                <input type="password" placeholder="Password">
+                <input placeholder="Email/Username" name="username">
+                <input type="password" placeholder="Password" name="password">
                 <a href="#">Forgot Your Password ?</a>
-                <button>Sign In</button>
+                <button type="submit">Sign In</button>
             </form>
         </div>
         <div class="toggle-container">
@@ -49,4 +51,5 @@
 
     <script src="login_scripts.js"></script>
 </body>
+
 </html>
