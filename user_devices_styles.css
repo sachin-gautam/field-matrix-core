@@ -624,4 +624,21 @@ main .recent-devices a{
 
 }
 
-
+.actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.del{
+    width: fit-content;
+    padding: 5px;
+    background-color: transparent;
+    color: black;
+    margin: 0px;
+    transition: 0.2s;
+}
+.del:hover{
+    transform: rotateZ(90deg);
+    scale: 1.5;
+    color: crimson;
+}
