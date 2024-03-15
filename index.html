@@ -1,411 +1,642 @@
-<!--
-    The code in this website is licensed under the terms of the GNU General Public License (GPL).
-    You are free to modify and distribute this code, provided that you also distribute it under the GPL.
-    For more details, see: https://www.gnu.org/licenses/gpl-3.0.html
--->
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
+  <title>FMC - Field Matrix Core</title>
 
-  header {
-    top: 0;
-	position: absolute;
-	width: 100%;
-    font-family: monospace, sans-serif;
-	font-size: 4vw;
-	font-weight: bold;
-    background-color: #e5e5e5;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 14.5vh;
-  }
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.png" type="image/svg+xml">
 
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    margin: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    height: 150vh;
-  }
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
 
-  .container {
-    background-color: #ffffff;
-    position: absolute;
-    top: 15vh; /* Adjust this value based on the desired distance from the top */
-    width: 60vw;
-    height: 80vh;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-    backface-visibility: hidden; /* Hide back face when flipped */
-  }
-
-  label {
-    margin-bottom: 10px;
-	padding: 10px;
-    font-family: monospace;
-    font-size: 3em;
-    font-weight: bold;
-  }
-
-  input {
-    padding: 8px;
-    margin-bottom: 12px;
-  }
-
-  .form-group {
-    display: flex;
-	align-items: center;
-    flex-direction: nowrap;
-    margin-bottom: 10px;
-  }
-
-  .form-group label,
-  .form-group input {
-    margin-bottom: 5vh;
-  }
-
-  button {
-	width: 50vw;
-    margin-top: 6vh;
-	margin-left: 5vw;
-    padding: 20px;
-    background-color: #007bff;
-    color: #fff;
-	font-weight: bold;		
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  #username, #password {
-	width: 40vw;
-	height: 7vh;
-    padding: 5px;
-    background-color: #e5e5e5;
-    color: #0000;
-	font-size: 2vw;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-
-  }
-	
-  #signupFullname, #signupUsername, #signupLocation,
-  #confirmPassword, #signupPassword {
-	width: 25vw;
-	height: 4vh;
-    padding: 5px;
-    background-color: #e5e5e5;
-    color: #0000;
-	font-size: 2vw;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-
-  }
-
-  #loginContainer {
-	perspective: 1000px; /* Add perspective for 3D effect */
-    transform-style: preserve-3d;
-    transition: transform 1.2s ease;
-  }
-
-  #loginContainer.show-signup {
-    transform: rotateY(180deg);
-    width: 55vw;
-	height: 110vh;
-
-  }
-
-  #signupForm {
-    position: absolute;
-    padding: 10px;
-    top: 0;
-    left: 0;
-    right: 10px;
-    transform: rotateY(180deg);
-    visibility: hidden;
-
-  }
-
-  #signupForm > .form-group {
-    display: flex;
-    flex-direction: nowrap;
-  }
-
-  #signupForm > .form-group label {
-    display: inline-block; /* or display: inline; */
-    width: 30vw; /* Adjust the width as needed */
-    margin: 20px;
-  }
-
-  #signupForm > .form-group input {
-    display: inline-block; /* or display: inline; */
-    margin: 15px;
-  }
-
-  #signupForm > button {
-	width: 44vw;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-	font-weight: bold;		
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-        
-  footer {
-    bottom: 0;
-    width: 100%;
-    height: 10vh;
-    background-color: #e5e5e5;
-    padding: 5px 0;
-    text-align: center;
-    transition: background-color 0.3s ease;
-     
-  }
-
-  .footer-content {
-    font-weight: bold;
-    font-size: 1.6em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #loginContainer.show-signup #signupForm {
-    visibility: visible;
-  }
-
-  /* Cursor blinking animation */
-  .cursor {
-    display: inline-block;
-    animation: blinkCursor 0.7s infinite;
-  }
-
-  @keyframes blinkCursor {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  @media only screen and (max-width: 890px) {
-    header {
-      font-size: 4vw;
-      height: 10vh;
-    }
-
-    label {
-      font-size: 3.2vw;
-    }
-
-    body {
-      height: auto;
-    }
-
-    .container {
-	  position: absolute;
-      width: 90vw;
-      height: auto;
-      top: 10vh;
-    }
-
-    #loginContainer.show-signup {
-      width: 90vw;
-      height: 100vh;
-    }
-    
-    #signupForm {
-      position: absolute;
-    }
-    
-    #signupForm > .form-group label {
-      font-size: 3.2vw;
-      width: 40vw;
-      margin: 10px;
-    }
-
-    #signupForm > .form-group input {
-      width: 50vw;
-      margin: 5px;
-    }
-    
-    button {
-      width: 90vw;
-      margin-top: 3vh;
-      margin-left: 0;
-    }
-
-    #username,
-    #password,
-    #signupFullname,
-    #signupUsername,
-    #signupLocation,
-    #confirmPassword,
-    #signupPassword {
-      width: 80vw;
-      height: 6vh;
-      font-size: 3.9vw;
-    }
-
-    #signupForm > button {
-	  width: 50vw;
-	  margin-left: 20vw;
-      padding: 10px;
-      background-color: #007bff;
-      color: #fff;
-	  font-weight: bold;		
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-
-  }
-
-</style>
-
-
-<title>Login Page</title>
-
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;900&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
 
-<header>
-  <div id="name-container">
-    <span id="name"></span><span id="cursor" class="cursor">|</span>
-  </div>
-</header>
+  <!-- 
+    - HEADER
+  -->
 
-<div class="container" id="loginContainer">
-  <form id="loginForm" action="login.php" method="post">
-    <h2 style="text-align:center;">Login</h2>
-    <br>
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required autocomplete="off">
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="./logo.png" alt="Landio logo">
+        <h1>FMC</h1>
+      </a>
+
+      <button class="menu-toggle-btn" data-nav-toggle-btn>
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav class="navbar">
+        <ul class="navbar-list">
+
+          <li>
+            <a href="#hero" class="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#features" class="navbar-link">Features</a>
+          </li>
+
+          <li>
+            <a href="#contact" class="navbar-link">Contact Us</a>
+          </li>
+
+        </ul>
+
+        <div class="header-actions">
+          <a href="/login.php" class="header-action-link">Log in / Register</a>
+        </div>
+      </nav>
+
     </div>
-        
-    <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required autocomplete="off">
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - HERO
+      -->
+
+      <section class="hero" id="hero">
+        <div class="container">
+
+          <div class="hero-content">
+            <h1 class="h1 hero-title">Field Matrix Core</h1>
+
+            <p class="hero-text">
+              Field Matrix Core offers seamless device integration, intuitive management, remote control, automation, real-time alerts, scalability, and robust security.
+            </p>
+
+            <p class="form-text">
+              Subscribe to our Newsletter for Email updates.
+            </p>
+
+            <form action="" class="hero-form">
+              <input type="email" name="email" required placeholder="Enter Your Email" class="email-field">
+
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+          </div>
+
+          <figure class="hero-banner">
+            <img src="./assets/images/hero-banner.svg" alt="Hero image">
+          </figure>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - ABOUT
+      -->
+
+      <section class="about">
+        <div class="container">
+
+          <div class="about-content">
+
+            <div class="about-icon">
+              <ion-icon name="cube"></ion-icon>
+            </div>
+
+            <h2 class="h2 about-title">Why Choose Us ?</h2>
+
+            <p class="about-text">
+              Seamless integration, intuitive management, real-time alerts, scalability, and robust security. Empower your IoT operations with simplicity and innovation.
+            </p>
+
+          </div>
+
+          <ul class="about-list">
+
+            <li>
+              <div class="about-card">
+
+                <div class="card-icon">
+                  <ion-icon name="git-branch"></ion-icon>
+                </div>
+
+                <h3 class="h3 card-title">Easy Integration</h3>
+
+                <p class="card-text">
+                  Easily integrated your Devices
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="about-card">
+
+                <div class="card-icon">
+                  <ion-icon name="cloud"></ion-icon>
+                </div>
+
+                <h3 class="h3 card-title">Remote Monitoring</h3>
+
+                <p class="card-text">
+                  Remotely check your device status
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="about-card">
+
+                <div class="card-icon">
+                  <ion-icon name="cog"></ion-icon>
+                </div>
+
+                <h3 class="h3 card-title">Device Management</h3>
+
+                <p class="card-text">
+                  Manage your connected devices easily
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="about-card">
+
+                <div class="card-icon">
+                  <ion-icon name="server"></ion-icon>
+                </div>
+
+                <h3 class="h3 card-title">Data Privacy</h3>
+
+                <p class="card-text">
+                  Protect your personal and device information
+                </p>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - FEATURES
+      -->
+
+      <section class="features" id="features">
+        <div class="container">
+
+          <h2 class="h2 section-title">Awesome Features</h2>
+
+          <p class="section-text">
+            To help connect your devices and manage  them
+          </p>
+
+          <div class="features-wrapper">
+
+            <figure class="features-banner">
+              <img src="./assets/images/features-img-1.png" alt="illustration art">
+            </figure>
+
+            <div class="features-content">
+
+              <p class="features-content-subtitle">
+                <ion-icon name="sparkles"></ion-icon>
+
+                <span>CREATIVE FEATURES</span>
+              </p>
+
+              <h3 class="features-content-title">
+                Build your <strong>IoT hub</strong> with our suite of <strong>simple
+                  tools</strong>
+              </h3>
+
+              <ul class="features-list">
+
+                <li class="features-list-item">
+                  <ion-icon name="layers-outline"></ion-icon>
+
+                  <p>Add new Devices</p>
+                </li>
+
+                <li class="features-list-item">
+                  <ion-icon name="megaphone-outline"></ion-icon>
+
+                  <p>Stay updated with new device supports</p>
+                </li>
+
+              </ul>
+
+              <a href="/login.php" class="btn-group">
+                <button class="btn btn-primary">Register now</button>
+              </a>
+
+            </div>
+
+          </div>
+
+          <!-- <div class="features-wrapper">
+
+            <figure class="features-banner">
+              <img src="./assets/images/features-img-2.png" alt="illustration art">
+            </figure>
+
+            <div class="features-content">
+
+              <p class="features-content-subtitle">
+                <ion-icon name="sparkles"></ion-icon>
+
+                <span>CREATIVE FEATURES</span>
+              </p>
+
+              <h3 class="features-content-title">
+                We do the work you <strong>stay focused</strong> on <strong>your customers.</strong>
+              </h3>
+
+              <p class="features-content-text">
+                Temporibus autem quibusdam et aut officiis debitis aut rerum a necessitatibus saepe eveniet ut et
+                voluptates repudiandae
+                sint molestiae non recusandae itaque.
+              </p>
+
+              <ul class="features-list">
+
+                <li class="features-list-item">
+                  <ion-icon name="rocket-outline"></ion-icon>
+
+                  <p>Donec pede justo fringilla vel nec.</p>
+                </li>
+
+                <li class="features-list-item">
+                  <ion-icon name="wifi-outline"></ion-icon>
+
+                  <p>Cras ultricies mi eu turpis hendrerit fringilla.</p>
+                </li>
+
+              </ul>
+
+              <div class="btn-group">
+                <button class="btn btn-primary">Read More</button>
+
+                <button class="btn btn-secondary">Buy Now</button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div> -->
+      </section>
+
+
+
+
+
+      <!-- 
+        - BLOG
+      -->
+
+      <!-- <section class="blog" id="blog">
+        <div class="container">
+
+          <h2 class="h2 section-title">Latest News</h2>
+
+          <p class="section-text">
+            Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis eligendi
+            cumque.
+          </p>
+
+          <ul class="blog-list">
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="blog-banner">
+                  <img src="./assets/images/blog-banner-1.jpg" alt="Best Traveling Place">
+                </figure>
+
+                <div class="blog-meta">
+
+                  <span>
+                    <ion-icon name="calendar-outline"></ion-icon>
+
+                    <time datetime="2021-04-10">april 10 2021</time>
+                  </span>
+
+                  <span>
+                    <ion-icon name="person-outline"></ion-icon>
+
+                    <p>admin</p>
+                  </span>
+
+                </div>
+
+                <h3 class="blog-title">Best Traveling Place</h3>
+
+                <p class="blog-text">
+                  Integer ante arcu accumsan a consectetuer eget posuere mauris praesent adipiscing phasellus
+                  ullamcorper ipsum rutrum
+                  punc.
+                </p>
+
+                <a href="#" class="blog-link-btn">
+                  <span>Learn More</span>
+
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="blog-banner">
+                  <img src="./assets/images/blog-banner-2.jpg" alt="Private Meeting Room">
+                </figure>
+
+                <div class="blog-meta">
+
+                  <span>
+                    <ion-icon name="calendar-outline"></ion-icon>
+
+                    <time datetime="2021-04-10">april 10 2021</time>
+                  </span>
+
+                  <span>
+                    <ion-icon name="person-outline"></ion-icon>
+
+                    <p>admin</p>
+                  </span>
+
+                </div>
+
+                <h3 class="blog-title">Private Meeting Room</h3>
+
+                <p class="blog-text">
+                  Integer ante arcu accumsan a consectetuer eget posuere mauris praesent adipiscing phasellus
+                  ullamcorper ipsum rutrum
+                  punc.
+                </p>
+
+                <a href="#" class="blog-link-btn">
+                  <span>Learn More</span>
+
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+
+                <figure class="blog-banner">
+                  <img src="./assets/images/blog-banner-3.jpg" alt="The Best Business Ideas">
+                </figure>
+
+                <div class="blog-meta">
+
+                  <span>
+                    <ion-icon name="calendar-outline"></ion-icon>
+
+                    <time datetime="2021-04-10">april 10 2021</time>
+                  </span>
+
+                  <span>
+                    <ion-icon name="person-outline"></ion-icon>
+
+                    <p>admin</p>
+                  </span>
+
+                </div>
+
+                <h3 class="blog-title">The Best Business Ideas</h3>
+
+                <p class="blog-text">
+                  Integer ante arcu accumsan a consectetuer eget posuere mauris praesent adipiscing phasellus
+                  ullamcorper ipsum rutrum
+                  punc.
+                </p>
+
+                <a href="#" class="blog-link-btn">
+                  <span>Learn More</span>
+
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section> -->
+
+
+
+
+
+      <!-- 
+        - CONTACT
+      -->
+
+      <section class="contact" id="contact">
+        <div class="container">
+
+          <h2 class="h2 section-title">Contact Us</h2>
+
+          <p class="section-text">
+            For any queries contact us through the form
+          </p>
+
+          <div class="contact-wrapper">
+
+            <form action="" class="contact-form">
+
+              <div class="wrapper-flex">
+
+                <div class="input-wrapper">
+                  <label for="name">Name*</label>
+
+                  <input type="text" name="name" id="name" required placeholder="Enter Your Name" class="input-field">
+                </div>
+
+                <div class="input-wrapper">
+                  <label for="emai">Email*</label>
+
+                  <input type="text" name="email" id="email" required placeholder="Enter Your Email"
+                    class="input-field">
+                </div>
+
+              </div>
+
+              <label for="message">Message*</label>
+
+              <textarea name="message" id="message" required placeholder="Type Your Message"
+                class="input-field"></textarea>
+
+              <button type="submit" class="btn btn-primary">
+                <span>Send Message</span>
+
+                <ion-icon name="paper-plane-outline"></ion-icon>
+              </button>
+
+            </form>
+
+            <ul class="contact-list">
+
+              <li>
+                <a href="mailto:support@website.com" class="contact-link">
+                  <ion-icon name="mail-outline"></ion-icon>
+
+                  <span>: support@fmc.com</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="contact-link">
+                  <ion-icon name="globe-outline"></ion-icon>
+
+                  <span>: www.fmc.com</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="tel:+0011234567890" class="contact-link">
+                  <ion-icon name="call-outline"></ion-icon>
+
+                  <span>: (+977) 123 456 7890</span>
+                </a>
+              </li>
+
+              <li>
+                <div class="contact-link">
+                  <ion-icon name="time-outline"></ion-icon>
+
+                  <span>: 9:00 AM - 6:00 PM</span>
+                </div>
+              </li>
+
+              <li>
+                <a href="#" class="contact-link">
+                  <ion-icon name="location-outline"></ion-icon>
+
+                  <address>: Putalisadak, Kathmandu</address>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - FOOTER
+  -->
+
+  <footer>
+
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+      </div>
     </div>
-        
-    <button type="submit">Login</button><br><br>
-    <p id="signupLink" style="text-align: center; font-weight: bold;" onclick="toggleSignup()">Don't have an account? Sign up</p>
-    </form>
 
-  <form id="signupForm" action="signup.php" method="post">
-    <h2 style="text-align: center">Form</h2>
-    <div class="form-group">
-      <label for="name">Full-Name:</label>
-      <input type="text" id="signupFullname" name="signupFullname" required autocomplete="off">
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">
+          &copy; 2024 <a href="">FMC</a>. All Right Reserved
+        </p>
+      </div>
     </div>
-        
-    <div class="form-group">
-      <label for="signupUsername">Username:</label>
-      <input type="text" id="signupUsername" name="signupUsername" required autocomplete="off">
-    </div>
-        
-    <div class="form-group">
-      <label for="signupPassword">Password:</label>
-      <input type="password" id="signupPassword" name="signupPassword" required autocomplete="off">
-    </div>
-        
-    <div class="form-group">
-      <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="off">
-    </div>
-        
-    <div class="form-group">
-      <label for="location">Location:</label>
-      <input type="text" id="signupLocation" name="location" required autocomplete="off">
-    </div>
-        
-    <button type="submit">Sign Up</button>
-      <p style="text-align: center; font-weight: bold;" id="loginLink" onclick="toggleSignup()">Already have an account? Login</p>
-  </form>
 
-</div>
-
-<footer>
-
-  <p class="footer-content">&copy; iceman404</p>
-
-</footer>
+  </footer>
 
 
-<script>
-  function toggleSignup() {
-  const loginContainer = document.getElementById("loginContainer");
-  loginContainer.classList.toggle("show-signup");
-}
-
-  // Typing effect for the name "Iceman404"
-  const nameElement = document.getElementById('name');
-  const cursorElement = document.getElementById('cursor');
-  const nameTexts = ["Welcome to Field Matrix Core", "Your one stop solution to IOT Hub"];
-  let textIndex = 0;
-  let charIndex = 0;
-
-  function type() {
-    if (charIndex <= nameTexts[textIndex].length) {
-      nameElement.textContent = nameTexts[textIndex].slice(0, charIndex);
-      charIndex++;
-      setTimeout(type, 200);
-    } else {
-      cursorElement.style.visibility = 'visible';
-      setTimeout(erase, 2000);
-    }
-  }
-
-  function erase() {
-    if (charIndex >= 0) {
-      nameElement.textContent = nameTexts[textIndex].slice(0, charIndex);
-      charIndex--;
-      setTimeout(erase, 50);
-    } else {
-      textIndex++;
-    if (textIndex >= nameTexts.length) {
-      textIndex = 0;
-    }
-
-    cursorElement.style.visibility = 'hidden'; // Hide the cursor before changing text
-    setTimeout(() => {
-      nameElement.textContent = nameTexts[textIndex]; // Set the text content before typing starts
-      charIndex = 0; // Reset charIndex for the new text
-      type();
-      }, 100);
-    }
-  }
-  
-  type();
 
 
-</script>
 
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
