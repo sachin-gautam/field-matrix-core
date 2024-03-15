@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="user_login_page.css">
+</head>
+<body>
+    <div class="container">
+        <!-- User Login Link -->
+    <a href="#" id="user-login-link">User Login</a>
+    <!-- User Signup Link -->
+    <a href="#" id="user-signup-link">User Signup</a>
+    <!-- Admin Login Link -->
+    <a href="#" id="admin-login-link">Admin Login</a>
+    <!-- Admin Signup Link -->
+    <a href="#" id="admin-signup-link">Admin Signup</a>
+        
+
+        <!-- User Login Section -->
+        <div class="card" id="user-login">
+        <!-- User Login -->
+        <div class="card">
+            <h2>User Login</h2>
+            <form id="user-login-form" method="post" action="user_login_page.php">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        </div>
+
+
+        <!-- User Signup Section -->
+        <div class="card" id="user-signup">
+        <!-- User Signup -->
+        <div class="card">
+            <h2>User Signup</h2>
+            <form id="user-signup-form">
+                <label for="new-username">Username:</label>
+                <input type="text" id="new-username" name="new-username" required>
+                <label for="new-password">Password:</label>
+                <input type="password" id="new-password" name="new-password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        </div>
+
+        <!-- Admin Login Section -->
+        <div class="card" id="admin-login">
+        <!-- Admin Login -->
+        <div class="card">
+            <h2>Admin Login</h2>
+            <form id="admin-login-form">
+                <label for="admin-username">Username:</label>
+                <input type="text" id="admin-username" name="admin-username" required>
+                <label for="admin-password">Password:</label>
+                <input type="password" id="admin-password" name="admin-password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        </div>
+
+        <!-- Admin Signup Section -->
+        <div class="card" id="admin-signup">
+        <!-- Admin Signup -->
+        <div class="card">
+            <h2>Admin Signup</h2>
+            <form id="admin-signup-form">
+                <label for="admin-new-username">Username:</label>
+                <input type="text" id="admin-new-username" name="admin-new-username" required>
+                <label for="admin-new-password">Password:</label>
+                <input type="password" id="admin-new-password" name="admin-new-password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <script src="user_login_page.js"></script>
+</body>
+</html>

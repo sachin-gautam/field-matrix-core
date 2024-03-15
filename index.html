@@ -1,0 +1,411 @@
+<!--
+    The code in this website is licensed under the terms of the GNU General Public License (GPL).
+    You are free to modify and distribute this code, provided that you also distribute it under the GPL.
+    For more details, see: https://www.gnu.org/licenses/gpl-3.0.html
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+
+  header {
+    top: 0;
+	position: absolute;
+	width: 100%;
+    font-family: monospace, sans-serif;
+	font-size: 4vw;
+	font-weight: bold;
+    background-color: #e5e5e5;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 14.5vh;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 150vh;
+  }
+
+  .container {
+    background-color: #ffffff;
+    position: absolute;
+    top: 15vh; /* Adjust this value based on the desired distance from the top */
+    width: 60vw;
+    height: 80vh;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    backface-visibility: hidden; /* Hide back face when flipped */
+  }
+
+  label {
+    margin-bottom: 10px;
+	padding: 10px;
+    font-family: monospace;
+    font-size: 3em;
+    font-weight: bold;
+  }
+
+  input {
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+
+  .form-group {
+    display: flex;
+	align-items: center;
+    flex-direction: nowrap;
+    margin-bottom: 10px;
+  }
+
+  .form-group label,
+  .form-group input {
+    margin-bottom: 5vh;
+  }
+
+  button {
+	width: 50vw;
+    margin-top: 6vh;
+	margin-left: 5vw;
+    padding: 20px;
+    background-color: #007bff;
+    color: #fff;
+	font-weight: bold;		
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #username, #password {
+	width: 40vw;
+	height: 7vh;
+    padding: 5px;
+    background-color: #e5e5e5;
+    color: #0000;
+	font-size: 2vw;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+  }
+	
+  #signupFullname, #signupUsername, #signupLocation,
+  #confirmPassword, #signupPassword {
+	width: 25vw;
+	height: 4vh;
+    padding: 5px;
+    background-color: #e5e5e5;
+    color: #0000;
+	font-size: 2vw;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+  }
+
+  #loginContainer {
+	perspective: 1000px; /* Add perspective for 3D effect */
+    transform-style: preserve-3d;
+    transition: transform 1.2s ease;
+  }
+
+  #loginContainer.show-signup {
+    transform: rotateY(180deg);
+    width: 55vw;
+	height: 110vh;
+
+  }
+
+  #signupForm {
+    position: absolute;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    right: 10px;
+    transform: rotateY(180deg);
+    visibility: hidden;
+
+  }
+
+  #signupForm > .form-group {
+    display: flex;
+    flex-direction: nowrap;
+  }
+
+  #signupForm > .form-group label {
+    display: inline-block; /* or display: inline; */
+    width: 30vw; /* Adjust the width as needed */
+    margin: 20px;
+  }
+
+  #signupForm > .form-group input {
+    display: inline-block; /* or display: inline; */
+    margin: 15px;
+  }
+
+  #signupForm > button {
+	width: 44vw;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+	font-weight: bold;		
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+        
+  footer {
+    bottom: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: #e5e5e5;
+    padding: 5px 0;
+    text-align: center;
+    transition: background-color 0.3s ease;
+     
+  }
+
+  .footer-content {
+    font-weight: bold;
+    font-size: 1.6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #loginContainer.show-signup #signupForm {
+    visibility: visible;
+  }
+
+  /* Cursor blinking animation */
+  .cursor {
+    display: inline-block;
+    animation: blinkCursor 0.7s infinite;
+  }
+
+  @keyframes blinkCursor {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media only screen and (max-width: 890px) {
+    header {
+      font-size: 4vw;
+      height: 10vh;
+    }
+
+    label {
+      font-size: 3.2vw;
+    }
+
+    body {
+      height: auto;
+    }
+
+    .container {
+	  position: absolute;
+      width: 90vw;
+      height: auto;
+      top: 10vh;
+    }
+
+    #loginContainer.show-signup {
+      width: 90vw;
+      height: 100vh;
+    }
+    
+    #signupForm {
+      position: absolute;
+    }
+    
+    #signupForm > .form-group label {
+      font-size: 3.2vw;
+      width: 40vw;
+      margin: 10px;
+    }
+
+    #signupForm > .form-group input {
+      width: 50vw;
+      margin: 5px;
+    }
+    
+    button {
+      width: 90vw;
+      margin-top: 3vh;
+      margin-left: 0;
+    }
+
+    #username,
+    #password,
+    #signupFullname,
+    #signupUsername,
+    #signupLocation,
+    #confirmPassword,
+    #signupPassword {
+      width: 80vw;
+      height: 6vh;
+      font-size: 3.9vw;
+    }
+
+    #signupForm > button {
+	  width: 50vw;
+	  margin-left: 20vw;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+	  font-weight: bold;		
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+
+  }
+
+</style>
+
+
+<title>Login Page</title>
+
+</head>
+<body>
+
+<header>
+  <div id="name-container">
+    <span id="name"></span><span id="cursor" class="cursor">|</span>
+  </div>
+</header>
+
+<div class="container" id="loginContainer">
+  <form id="loginForm" action="login.php" method="post">
+    <h2 style="text-align:center;">Login</h2>
+    <br>
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required autocomplete="off">
+    </div>
+        
+    <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required autocomplete="off">
+    </div>
+        
+    <button type="submit">Login</button><br><br>
+    <p id="signupLink" style="text-align: center; font-weight: bold;" onclick="toggleSignup()">Don't have an account? Sign up</p>
+    </form>
+
+  <form id="signupForm" action="signup.php" method="post">
+    <h2 style="text-align: center">Form</h2>
+    <div class="form-group">
+      <label for="name">Full-Name:</label>
+      <input type="text" id="signupFullname" name="signupFullname" required autocomplete="off">
+    </div>
+        
+    <div class="form-group">
+      <label for="signupUsername">Username:</label>
+      <input type="text" id="signupUsername" name="signupUsername" required autocomplete="off">
+    </div>
+        
+    <div class="form-group">
+      <label for="signupPassword">Password:</label>
+      <input type="password" id="signupPassword" name="signupPassword" required autocomplete="off">
+    </div>
+        
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="off">
+    </div>
+        
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input type="text" id="signupLocation" name="location" required autocomplete="off">
+    </div>
+        
+    <button type="submit">Sign Up</button>
+      <p style="text-align: center; font-weight: bold;" id="loginLink" onclick="toggleSignup()">Already have an account? Login</p>
+  </form>
+
+</div>
+
+<footer>
+
+  <p class="footer-content">&copy; iceman404</p>
+
+</footer>
+
+
+<script>
+  function toggleSignup() {
+  const loginContainer = document.getElementById("loginContainer");
+  loginContainer.classList.toggle("show-signup");
+}
+
+  // Typing effect for the name "Iceman404"
+  const nameElement = document.getElementById('name');
+  const cursorElement = document.getElementById('cursor');
+  const nameTexts = ["Welcome to Field Matrix Core", "Your one stop solution to IOT Hub"];
+  let textIndex = 0;
+  let charIndex = 0;
+
+  function type() {
+    if (charIndex <= nameTexts[textIndex].length) {
+      nameElement.textContent = nameTexts[textIndex].slice(0, charIndex);
+      charIndex++;
+      setTimeout(type, 200);
+    } else {
+      cursorElement.style.visibility = 'visible';
+      setTimeout(erase, 2000);
+    }
+  }
+
+  function erase() {
+    if (charIndex >= 0) {
+      nameElement.textContent = nameTexts[textIndex].slice(0, charIndex);
+      charIndex--;
+      setTimeout(erase, 50);
+    } else {
+      textIndex++;
+    if (textIndex >= nameTexts.length) {
+      textIndex = 0;
+    }
+
+    cursorElement.style.visibility = 'hidden'; // Hide the cursor before changing text
+    setTimeout(() => {
+      nameElement.textContent = nameTexts[textIndex]; // Set the text content before typing starts
+      charIndex = 0; // Reset charIndex for the new text
+      type();
+      }, 100);
+    }
+  }
+  
+  type();
+
+
+</script>
+
+</body>
+</html>
