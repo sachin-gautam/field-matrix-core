@@ -21,28 +21,28 @@
                 </div>    
             </div>
             <div class="sidebar">
-                <a href="#">
+                <a href="admin.php">
                     <span class="material-icons-sharp">grid_view</span>
                     <h3>Dashboard</h3>   
                 </a>
-                <a href="#" class="active">
+                <a href="admin_users.php" class="active">
                     <span class="material-icons-sharp">person_outline</span>
                     <h3>Users</h3>   
                 </a>
-                <a href="#">
+                <a href="admin_messages.php">
                     <span class="material-icons-sharp">mail_outline</span>
                     <h3>Messages</h3>
                     <span class="message-count">26</span>   
                 </a>
-                <a href="#">
+                <a href="admin_devices.php">
                     <span class="material-icons-sharp">inventory</span>
                     <h3>Devices</h3>   
                 </a>
-                <a href="#">
+                <a href="admin_add_devices.php">
                     <span class="material-icons-sharp">add</span>
                     <h3>Add Device</h3>   
                 </a>
-                <a href="#">
+                <a href="login.php">
                     <span class="material-icons-sharp">logout</span>
                     <h3>Log Out</h3>   
                 </a>
@@ -51,85 +51,36 @@
         <!-- end of side bar -->
         <main>
             <h1>Dashboard</h1>
-            <div class="date">
-                <input type="date">
-            </div>
-            <div class="insights">
-                <!-- users -->
-                <div class="users">
-                    <span class="material-icons-sharp">account_box</span>
-                    <div class="middle">
-                        <div class="left">
-                            <h3>Total Users</h3>
-                            <h1>25</h1>
-                        </div>
-                        <div class="progress">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="number">
-                                <p>67%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- devices -->
-                <div class="devices">
-                    <span class="material-icons-sharp">wifi_tethering</span>
-                    <div class="middle">
-                        <div class="left">
-                            <h3>Total Devices</h3>
-                            <h1>50</h1>
-                        </div>
-                        <div class="progress">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="number">
-                                <p>44%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--End of Devices-->
-            </div>
-            <!--End of Analytics-->
 
             <div class="recent-devices">
-                <h2>Recent Devices</h2>
+                <h2>Users</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>Device Name</th>
-                            <th>Device Number</th>
-                            <th>Status</th>
+                            <th></th>
+                            <th>User Name</th>
+                            <th>User Id</th>
+                            <th>Devices</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Raspberry Pi</td>
+                            <td><img class="profile-photo" src="./images/profile-2.jpg"></td>
+                            <td>Ram Bahadur</td>
                             <td class="primary">89789</td>
-                            <td class="warning">Off</td>
+                            <td>2</td>
                         </tr>
                         <tr>
-                            <td>ESP 32</td>
+                            <td><img class="profile-photo" src="./images/profile-3.jpg"></td>
+                            <td>Hari Bahadur</td>
                             <td class="primary">63589</td>
-                            <td class="warning">Off</td>
+                            <td>3</td>
                         </tr>
                         <tr>
-                            <td>Raspberry Pi</td>
+                            <td><img class="profile-photo" src="./images/profile-4.jpg"></td>
+                            <td>Hira Lal</td>
                             <td class="primary">69789</td>
-                            <td class="warning">Off</td>
-                        </tr>
-                        <tr>
-                            <td>Raspberry Pi</td>
-                            <td class="primary">45789</td>
-                            <td class="warning">Off</td>
-                        </tr>
-                        <tr>
-                            <td>ESP 32</td>
-                            <td class="primary">23743</td>
-                            <td class="warning">Off</td>
+                            <td>2</td>
                         </tr>
                     </tbody>
                 </table>
