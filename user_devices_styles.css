@@ -585,14 +585,14 @@ main .recent-devices a{
 
 .popup form{
     display: flex;
-    gap: 20px;
+    gap: 10px;
     flex-direction: column;
     padding: var(--card-padding);
     background-color: var(--color-white);
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     height: auto;
-    width: 500px;
+    width: 400px;
 
 }
 

@@ -3,8 +3,8 @@
 
 $host = 'localhost';
 $user = 'root';
-$pass = 'subu19';
-$db   = 'sachin';
+$pass = '';
+$db   = 'fmc';
 
 
 $mysql = mysqli_connect($host, $user, $pass, $db);

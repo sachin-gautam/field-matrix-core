@@ -125,6 +125,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="popup" id="popup">
         <form id="popupForm" action="/backend/adddevice.php" method="post">
+            <input name="dname" class="input" type="text" placeholder="Device Name">
             <div class="select">
                 <select class="input" name="did">
                     <?php while ($device = $result->fetch_assoc()) : ?>
@@ -134,6 +135,7 @@ if (!isset($_SESSION['user_id'])) {
                 <span class="material-icons-sharp icon">expand_more</span>
             </div>
             <input name="mac" class="input" type="text" placeholder="MAC Address">
+            <input name="location" class="input" type="text" placeholder="Location">
             <button class="btn">Submit</button>
 
 
